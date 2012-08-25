@@ -25,6 +25,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+<<<<<<< HEAD
 
 #Remove Config files for the time being as they can have login info
 presets.cfg
@@ -33,3 +34,5 @@ settings.cfg
 .*~
 
 .DS_Store
+=======
+>>>>>>> e1b755f2f81f7477fb2e0e6d6f05f209ab117f09
