@@ -29,3 +29,5 @@ pip-log.txt
 #Remove Config files for the time being as they can have login info
 presets.cfg
 settings.cfg
+
+.*~
