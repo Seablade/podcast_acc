@@ -31,3 +31,5 @@ presets.cfg
 settings.cfg
 
 .*~
+
+.DS_Store
