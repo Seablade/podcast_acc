@@ -205,10 +205,13 @@ class Video(Destinations):
         author.text = self.author
         itunes_author = ET.SubElement(item, 'itunes:author')
         itunes_author.text = self.itunes_author
-        pubdate = ET.SubElement(item, 'pubdate')
+        pubdate = ET.SubElement(item, 'pubDate')
         pubdate.text = strftime("%a, %d %b %Y %H:%M:%S %z", gmtime())
         category = ET.SubElement(item, 'category')
         category.text = self.category
+        stat = os.stat(video)
+        filesize = stat.st_size
+        enclosure = ET.SubElement(item, 'enclosure', {'length' : str(filesize) , 'type' : 'video/quicktime' , 'url' : str(link.text)})
         ET.dump(item)
         root[0].insert(i, item)
         
