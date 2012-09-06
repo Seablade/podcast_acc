@@ -141,8 +141,12 @@ class FFMPEG_Handler(object):
         config file they should go under the Defaults section.  Right now the
         only one that is handled is the threads command
         '''
+        print("length of self.command: %d" % len(self.command))
+        print("Contents of command[1]: %s" % str(self.command[0]))
+
         if self.config.has_option("Default", "threads"):
             for i in range(0,len(self.command)):
+                print("Checking the contents of command[%d]: %s" % (i, self.command[i]))
                 log.debug("i == " + str(i))
                 self.command[i].insert(1, "-threads")
                 self.command[i].insert(2, self.config.get("Default", "threads"))
@@ -156,6 +160,8 @@ class FFMPEG_Handler(object):
         log.debug("buildCommand self.passes == " + str(self.passes))
         if self.passes == 1:
             options = self.getOptions(preset)
+            log.debug("options: %s" % str(options))
+            print("Options: %s" % str(options))
             self.command.append(self.buildCommandString(video, options))
             self.checkDefaults()
             log.debug("The final command to be run (Single-Pass): " + str(self.command))
@@ -187,7 +193,7 @@ class FFMPEG_Handler(object):
         options.insert(0, "-i")
         options.insert(0, "/usr/local/bin/ffmpeg")
         options.append("/tmp/" + str(self.output))
-        return
+        return options
 
 
     def convertVideo (self, video, preset, tmp='/tmp'):
@@ -200,12 +206,16 @@ class FFMPEG_Handler(object):
         The method should return a pointer to the file, either a path
           or a file object, whatever is appropriate for Python
         '''
+
+        
         self.buildCommand(video, preset)
         if len(self.command) > 1:
             if not subprocess.call(self.command[0]):
+                print("Pass 1 completed succesfully, now running pass 2")
                 log.debug("Pass 1 completed succesfully, now running pass 2")
                 subprocess.call(self.command[1])
         else:
+            print("Not a 2 Pass Recording, trying to convert")
             subprocess.call(self.command[0])
             log.debug("Completed the video file")
         return "/tmp/" + self.output

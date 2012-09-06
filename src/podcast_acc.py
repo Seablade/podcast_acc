@@ -61,11 +61,11 @@ def uploadVideo (video, destination):
     '''
     pass
 
-def find_Destinations(dest, path="plugins", cls=Destinations):
+def find_Plugins(plugin, path="plugins", cls=Destinations):
     plugins = load(path, cls)
     for i in range(0,len(plugins)):
         log.debug("Plugin Found: %s", plugins[i].DESTINATION)
-        if plugins[i].DESTINATION == dest :
+        if plugins[i].DESTINATION == plugin :
             log.debug("Destination %s found", plugins[i].DESTINATION)
             return plugins[i]
     
@@ -88,12 +88,17 @@ if __name__ == '__main__':
     parser.add_argument("--description", help="A short description of the video")
     parser.add_argument("--category", help="Category to define the video")
     parser.add_argument("--playlist", help="A playlist to add the video to if appropriate")
+    parser.add_argument("--type", help="Define the type of the destination")  # The type is for plugins like iTunes that might have multiple destinations
     args = parser.parse_args()
     
     path = str(os.path.dirname(os.path.realpath(__file__))) + "/plugins" # Add plugins directory to the system path
     sys.path.insert(0,path)
     print(sys.path)
-    target = find_Destinations(dest=args.destination)
+    log.debug("Destination: %s" % str(args.destination))
+    if args.type: # If there is a type specified on the commandline, use it, else look for a plugin named after the destination
+        target = find_Plugins(plugin=args.type)
+    else:
+        target = find_Plugins(plugin=args.destination)
     destination = target()
     
     # Read Default Settings from Config File
