@@ -78,7 +78,7 @@ class FFMPEG_Handler(object):
                 options.append('-vn')
             elif str(item[0]) == 'extension':
                 print ('Extension found in the config file options: %s' % item[1])
-                self.extension == item[1]
+                self.extension == str(item[1])
             else:
                 options.append("-" + str(item[0]))
                 options.append(str(item[1]))
