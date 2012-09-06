@@ -72,8 +72,11 @@ class FFMPEG_Handler(object):
             else:
                 self.filterPass2(items)
         for item in items:
-            options.append("-" + str(item[0]))
-            options.append(str(item[1]))
+            if str(item[0]) == 'vn':
+                options.append('-vn')
+            else:
+                options.append("-" + str(item[0]))
+                options.append(str(item[1]))
         log.debug("Options post adding - flag: " + str(options))
         return options
 
