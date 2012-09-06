@@ -198,7 +198,7 @@ class FFMPEG_Handler(object):
         print('The current destination extension is: %s' % self.extension)
         if self.extension == '':
             print('self.extension has been found to be equal to \'\'')
-            self.extension == os.path.splitext(video)[1]
+            self.extension = os.path.splitext(video)[1]
         print('The current destination extension after the check is: %s' % self.extension)
         path = os.path.split(str(video))
         self.output = os.path.splitext(path[1])[0] + self.extension
