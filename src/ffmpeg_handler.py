@@ -36,6 +36,7 @@ class FFMPEG_Handler(object):
         self.passes = 0
         self.command = []
         self.output = ''
+        self.extension = ''
 
         tf = os.path.split(os.path.abspath(__file__))
         log.debug('Directory of this program: %s', tf[0])
@@ -74,6 +75,8 @@ class FFMPEG_Handler(object):
         for item in items:
             if str(item[0]) == 'vn':
                 options.append('-vn')
+            elif str(item[0] == 'extension'):
+                self.extension == item[1]
             else:
                 options.append("-" + str(item[0]))
                 options.append(str(item[1]))
@@ -189,8 +192,10 @@ class FFMPEG_Handler(object):
         return
 
     def buildCommandString(self, video, options):
+        if self.extension == '':
+            self.extension == os.path.splitext(video)[1]
         path = os.path.split(str(video))
-        self.output = path[1]
+        self.output = os.path.splitext(path[1])[0] + self.extension
         # command = options
         options.insert(0, str(video))
         options.insert(0, "-i")
