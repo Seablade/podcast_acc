@@ -74,8 +74,10 @@ class FFMPEG_Handler(object):
                 self.filterPass2(items)
         for item in items:
             if str(item[0]) == 'vn':
+                print ('No Video Option found in the config file options')
                 options.append('-vn')
             elif str(item[0] == 'extension'):
+                print ('Extension found in the config file options: %s' % item[1])
                 self.extension == item[1]
             else:
                 options.append("-" + str(item[0]))
@@ -194,6 +196,7 @@ class FFMPEG_Handler(object):
     def buildCommandString(self, video, options):
         print('The current destination extension is: %s' % self.extension)
         if self.extension == '':
+            print('self.extension has been found to be equal to \'\'')
             self.extension == os.path.splitext(video)[1]
         print('The current destination extension after the check is: %s' % self.extension)
         path = os.path.split(str(video))
