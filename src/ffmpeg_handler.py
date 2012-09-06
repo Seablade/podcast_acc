@@ -192,8 +192,10 @@ class FFMPEG_Handler(object):
         return
 
     def buildCommandString(self, video, options):
+        print('The current destination extension is: %s' % self.extension)
         if self.extension == '':
             self.extension == os.path.splitext(video)[1]
+        print('The current destination extension after the check is: %s' % self.extension)
         path = os.path.split(str(video))
         self.output = os.path.splitext(path[1])[0] + self.extension
         # command = options
