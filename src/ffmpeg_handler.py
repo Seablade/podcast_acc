@@ -76,7 +76,7 @@ class FFMPEG_Handler(object):
             if str(item[0]) == 'vn':
                 print ('No Video Option found in the config file options')
                 options.append('-vn')
-            elif str(item[0] == 'extension'):
+            elif str(item[0]) == 'extension':
                 print ('Extension found in the config file options: %s' % item[1])
                 self.extension == item[1]
             else:
