@@ -232,4 +232,8 @@ class FFMPEG_Handler(object):
             print("Not a 2 Pass Recording, trying to convert")
             subprocess.call(self.command[0])
             log.debug("Completed the video file")
-        return "/tmp/" + self.output
+        hinted = str(os.path.splitext(self.output)[0]) + '-hinted' + str(os.path.splitext(self.output)[1])
+        s = tmp + "/" + self.output
+        d = tmp + "/" + hinted
+        subprocess.call(['/usr/local/bin/qt-faststart', s, d])
+        return d
